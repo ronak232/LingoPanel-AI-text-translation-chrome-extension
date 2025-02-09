@@ -1,20 +1,27 @@
-import modals from "../services/modals";
+import { GenerativeModal } from "../services/modals.js";
 
 export const translationContent = async (content, translateTo) => {
-  const getContent = await modals.modal.generateContent({
-    contents: [
-      {
-        role: "user",
-        parts: [
-          {
-            text: ` translate the ${content} to user preferred language ${translateTo}
-                `,
-          },
-        ],
-      },
-    ],
-    systemInstruction: "You are good translation guide that help every people",
-  });
+  console.log("content", content, translateTo);
+  try {
+    const getContent = await GenerativeModal.geminiModalInit();
 
-  console.log("generate content ", getContent.response.text());
+    const result = await getContent.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [
+            {
+              text: `translate the ${content} in user preferred language ${translateTo}`,
+            },
+          ],
+        },
+      ],
+    });
+    console.log("ai response ", result.response);
+    const aiResponse = result.response.text();
+    console.log("ai response ", aiResponse);
+    return aiResponse;
+  } catch (error) {
+    throw new Error("Something went wrong")
+  }
 };

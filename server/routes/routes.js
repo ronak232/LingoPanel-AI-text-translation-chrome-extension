@@ -1,13 +1,14 @@
 import expresss from "express";
-import { translationContent } from "../content/translation";
+import { translationContent } from "../content/translation.js";
 
-const routes = expresss.Router();
+export const routes = expresss.Router();
 
 routes.post("/api/translate", async (req, res) => {
-  const { user_id } = req.user;
+  // const { user_id } = req.user;
   const { translationText, textLang } = req.body;
-  if (user_id) {
-    const data = translationContent(translationText, textLang);
+  if (translationText) {
+    const data = await translationContent(translationText, textLang);
+    console.log("response text from gemini ", data);
     res.status(200).json(data);
   } else {
     res.status(500).json({

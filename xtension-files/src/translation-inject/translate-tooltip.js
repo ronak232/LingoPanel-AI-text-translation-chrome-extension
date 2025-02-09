@@ -2,6 +2,22 @@ console.log("running popup...");
 const translate_btn = document.querySelector(".translate");
 const selectedTooltip = document.querySelector(".translation-tooltip");
 
+async function callApi(translationText, textLang= "Hindi") {
+  try {
+    const response = await fetch("http://localhost:8000/api/translate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ translationText, textLang }),
+    });
+    const data = await response.json();
+    console.log("response ", data);
+  } catch (error) {
+    console.error("error in translating ...");
+  }
+}
+
 function copyToClipboard() {
   document.addEventListener("mouseup", () => {
     requestAnimationFrame(() => {
@@ -22,10 +38,12 @@ function copyToClipboard() {
         rectPosition.top - selectedTooltip.clientHeight
       }px`;
     });
-    translate_btn.addEventListener("click", () => {
+    translate_btn.addEventListener("mouseup", () => {
       const selection = window.getSelection();
       const selectedText = selection.toString();
-      console.log("translation selection ", selectedText);
+      callApi(selectedText);
+      // window.open(`https//:google.com/search?q=text${selectedText}`, '_blank','popup, width=600, height=600')
+      // console.log("selected ", selectedText)
     });
   });
 }
