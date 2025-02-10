@@ -4,15 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .translation-text {
+        color: aquamarine;
+        font-size: 16x;
+        font-family: Georgia, "Times New Roman", Times, serif;
+      }
+    </style>
   </head>
   <body>
     <h1>Text Translation</h1>
     <hr />
     <p id="select-a-word">Select a text to translate</p>
     <div>
-      <h2 id="translation-text"></h2>
+      <h2 class="translation-text" id="translation-text"></h2>
       <p id="translated-text"></p>
     </div>
-    <script type="module" src="sidepanel.js"></script>
   </body>
+  <script type="module" src="sidepanel.js" defer></script>
 </html>

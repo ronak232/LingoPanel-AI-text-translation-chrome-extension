@@ -20,7 +20,7 @@ export default defineConfig({
             return "background/[name].js";
           }
           // For other entries, use the default hashing pattern
-          return "assets/[name]-[hash].png";
+          return "assets/[name]-[hash].js";
         },
       },
     },

@@ -8,11 +8,11 @@
     "default_title": "Translation Content",
     "default_popup": "src/popup/popup.html",
     "default_icon": {
-      "16": "assets/translation-16.png",
-      "24": "assets/translation-24.png",
-      "32": "assets/translation-32.png",
-      "64": "assets/translation-64.png",
-      "128": "assets/translation-128.png"
+      "16": "assets/images/translation-16.png",
+      "24": "assets/images/translation-24.png",
+      "32": "assets/images/translation-32.png",
+      "64": "assets/images/translation-64.png",
+      "128": "assets/images/translation-128.png"
     }
   },
   "side_panel": {
@@ -26,7 +26,7 @@
     }
   ],
   "background": {
-    "service_worker": "/background/background.js",
+    "service_worker": "background/background.js",
     "type": "module"
   }
 }

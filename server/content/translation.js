@@ -17,7 +17,6 @@ export const translationContent = async (content, translateTo) => {
         },
       ],
     });
-    console.log("ai response ", result.response);
     const aiResponse = result.response.text();
     console.log("ai response ", aiResponse);
     return aiResponse;

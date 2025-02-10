@@ -18,7 +18,7 @@ async function callApi(translationText, textLang= "Hindi") {
   }
 }
 
-function copyToClipboard() {
+function translation_call() {
   document.addEventListener("mouseup", () => {
     requestAnimationFrame(() => {
       let selection = document.getSelection();
@@ -48,4 +48,4 @@ function copyToClipboard() {
   });
 }
 
-copyToClipboard();
+translation_call();
