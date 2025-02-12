@@ -1,9 +1,11 @@
-I have drafted a README.md file based on the provided information:
 
-```markdown
 # AI Text Translation Chrome Extension
 
 A Chrome extension for translating text using AI.
+
+![image](https://github.com/user-attachments/assets/c5c24538-8885-4c76-af08-190a9708e79e)
+
+https://github.com/user-attachments/assets/d84714f9-4f60-48b6-bc26-f8cd77ab5f5e
 
 ## Description
 
