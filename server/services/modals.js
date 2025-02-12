@@ -8,10 +8,13 @@ export class GenerativeModal {
   }
   static async geminiModalInit() {
     const apikey = process.env.GEMINI_API_KEY;
+    if(!apikey) {
+      console.error("no api key is defined ")
+    }
     const gemini = new GoogleGenerativeAI(
-      "AIzaSyCbiL5mH6VGCOP4I0t_975wBZMAe-zOwyk"
+      apikey
     );
-    const modal = await gemini.getGenerativeModel({
+    const modal = gemini.getGenerativeModel({
       model: "gemini-1.5-flash",
       systemInstruction: `You are a professional translation assistant named Ceaser. Your responsibilities are:
           • Analyze the provided text to determine its context and nature (e.g., news article, paragraph, comment, technical explanation).

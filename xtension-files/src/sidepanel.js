@@ -1,22 +1,35 @@
-console.log("side panel loaded...")
-chrome.runtime.sendMessage({action:"updateTranslation"}, (response) => {
-  console.log("received request ", response)
-  if(response && response.translation) {
-    updateTranslation(response.translation)
+const loading = document.querySelector(".loading-container");
+const translationText = document.getElementById("translation-text");
+const translatedText = document.getElementById("translated-text");
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "isSidePanel") {
+    sendResponse("ready");
+    return true;
+  }
+  if (message.action === "showLoading") {
+    loading.style.display = "flex";
+    translatedText.innerText = "";
+  }
+  if (message.action === "updateTranslation") {
+    updateTranslation(message.translation);
+    return true;
   }
 });
 
-chrome.runtime.onMessage.addListener((message) => {
-  if (message.action === "updateTranslation") {
-    updateTranslation(message.translation);
+chrome.runtime.sendMessage({ action: "updateTranslation" }, (response) => {
+  if (response && response.translation) {
+    updateTranslation(response.translation);
   }
 });
 
 function updateTranslation(text) {
-  console.log("Translation text:", text);
-  if (!text) return;
-  
-  // Update your side panel elements.
-  document.getElementById("translation-text").innerText = "Your Translated text into your preferred language 🤖";
-  document.getElementById("translated-text").innerText = text;
+  loading.style.display = "none";
+  translationText.innerText =
+    "Your Translated text into your preferred language 🤖";
+  if (!text) {
+    return;
+  } else {
+    translatedText.innerText = text;
+  }
 }

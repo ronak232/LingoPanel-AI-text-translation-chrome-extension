@@ -3,20 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .translation-text {
-        color: aquamarine;
-        font-size: 16x;
-        font-family: Georgia, "Times New Roman", Times, serif;
-      }
-    </style>
+    <link rel="stylesheet" href="sidepanel.css" />
+    <title>Sidepanel</title>
   </head>
   <body>
-    <h1>Text Translation</h1>
+    <h1>Intelligence Translated</h1>
     <hr />
-    <p id="select-a-word">Select a text to translate</p>
-    <div>
+    <p id="select-a-word">Elevate language with AI precision.</p>
+    <div class="loading-container">
+      <div id="loading">
+          <img src="../public/assets/images/chatbot.gif" alt="">
+      </div>
+    </div>
+    <div class="container">
+      
       <h2 class="translation-text" id="translation-text"></h2>
       <p id="translated-text"></p>
     </div>

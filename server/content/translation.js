@@ -5,7 +5,7 @@ export const translationContent = async (content, translateTo) => {
   try {
     const getContent = await GenerativeModal.geminiModalInit();
 
-    const result = await getContent.generateContent({
+    const result = getContent.generateContent({
       contents: [
         {
           role: "user",
@@ -17,10 +17,10 @@ export const translationContent = async (content, translateTo) => {
         },
       ],
     });
-    const aiResponse = result.response.text();
-    console.log("ai response ", aiResponse);
+    const aiResponse = (await result).response.text();
     return aiResponse;
   } catch (error) {
+    console.error("error for generating ", error)
     throw new Error("Something went wrong")
   }
 };

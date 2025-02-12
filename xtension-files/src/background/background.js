@@ -34,10 +34,35 @@ function setupContextMenu() {
     contexts: ["selection"],
     parentId: "translate-text",
   });
+  chrome.contextMenus.create({
+    id: "Japanese",
+    title: "Japanese",
+    contexts: ["selection"],
+    parentId: "translate-text",
+  });
 }
 
 chrome.runtime.onInstalled.addListener(() => {
   setupContextMenu();
+});
+
+let activeSidePanelTab = null;
+
+chrome.contextMenus.onClicked.addListener(async (data, tab) => {
+  try {
+    chrome.sidePanel.open({ tabId: tab.id });
+    const selectedLanguage = data.menuItemId;
+    
+
+    chrome.runtime.sendMessage({ action: "showLoading" }); // to show sidepanel about loading
+    activeSidePanelTab = tab.id;
+
+    const translation = await callApi(data.selectionText, selectedLanguage);
+
+    chrome.runtime.sendMessage({ action: "updateTranslation", translation });
+  } catch (error) {
+    console.error("Error in callApi:", error);
+  }
 });
 
 async function callApi(translationText, textLang = "English") {
@@ -50,26 +75,19 @@ async function callApi(translationText, textLang = "English") {
       body: JSON.stringify({ translationText, textLang }),
     });
     const data = await response.json();
-    console.log("API response:", data); // See full response
-    const translatedText = data; // Adjust as needed
-    console.log("Setting translation in storage:", translatedText);
-    chrome.storage.local.set({ translate: translatedText });
+    const translatedText = data;
     return translatedText;
   } catch (error) {
     console.error("error in translating ...");
   }
 }
 
-chrome.contextMenus.onClicked.addListener(async (data, tab) => {
-
-  chrome.sidePanel.open({ tabId: tab.id });
-  await chrome.storage.local.set({ translate: data.selectionText });
-  const selectedLanguage = data.menuItemId;
-
-  try {
-    const translation = await callApi(data.selectionText, selectedLanguage);
-    chrome.runtime.sendMessage({ action: "updateTranslation", translation });
-  } catch (error) {
-    console.error("Error in callApi:", error);
-  }
-});
+// chrome.tabs.onActivated.addListener((activeInfo) => {
+//   console.log("active tab", activeInfo);
+//   if (!activeSidePanelTab && activeInfo.tabId !== activeSidePanelTab) {
+//     chrome.sidePanel.setOptions({
+//       enabled: false,
+//     });
+//     activeSidePanelTab = null;
+//   }
+// });
