@@ -7,6 +7,9 @@ A Chrome extension for translating text using AI.
 
 https://github.com/user-attachments/assets/d84714f9-4f60-48b6-bc26-f8cd77ab5f5e
 
+![image](https://github.com/user-attachments/assets/3c72c129-e1d2-4539-9e21-93a80cc5db9f)
+
+
 ## Description
 
 This project is a Chrome extension that utilizes AI for text translation. It supports various languages and provides a seamless translation experience.
